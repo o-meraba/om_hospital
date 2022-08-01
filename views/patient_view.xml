@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="view_hospital_patient_search" model="ir.ui.view">
+            <field name="name">hospital.patient.search</field>
+            <field name="model">hospital.patient</field>
+               <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="All" filter_domain="['|','|','|', ('name', 'ilike', self), ('age', 'ilike', self), ('gender', 'ilike', self),  ('ref', 'ilike', self)]"/>
+                    <field name="age"/>
+                    <field name="ref"/>
+                    <field name="gender"/>
+                    <filter name="filter_male" string="Male" domain="[('gender','=','male')]"/>
+                    <separator/>
+                    <filter name="filter_female" string="Female" domain="[('gender','=','female')]"/>
+                    <separator/>
+<!--                    <filter name="filter_kids" string="Kids" domain="[('age', '&lt;=','5')]"/>    &lt;!&ndash; &lt;= equals <= &ndash;&gt;-->
+                    <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Gender" name="group_by_gender" domain="[]" context="{'group_by': 'gender'}"/>
+                        <filter string="Age" name="group_by_age" domain="[]" context="{'group_by': 'age'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="gender" select="multi" icon="fa-users" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+
+     <record id="view_hospital_patient_tree" model="ir.ui.view">
+            <field name="name">hospital.patient.tree</field>
+            <field name="model">hospital.patient</field>
+               <field name="arch" type="xml">
+                <tree sample="1" multi_edit="1">
+                    <field name="name" string="Patient Name"/>
+                    <field name="age"/>
+                    <field name="ref"/>
+                    <field name="gender"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+     <record id="view_hospital_patient_form" model="ir.ui.view">
+            <field name="name">hospital.patient.form</field>
+            <field name="model">hospital.patient</field>
+               <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="age"/>
+                                <field name="date_of_birth"/>
+                                 <field name="appointment_id"/>
+                            </group>
+                            <group>
+                                 <field name="ref"/>
+                                 <field name="gender"/>
+                                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Other" name="other">
+                                <label for="note" string="Description"/>
+                                <field name="note"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+
+ <record id="action_hospital_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_male':1,'search_default_group_by_gender':1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first patient!
+            </p>
+        </field>
+    </record>
+
+
+
+    <menuitem  id="menu_patient"
+               name="Patients"
+               action="action_hospital_patient"
+               parent="menu_patient_master"
+               sequence="0"/>
+
+</odoo>
