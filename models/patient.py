@@ -8,7 +8,7 @@ class HospitalPatient(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'name desc'
 
-    name = fields.Char(string="Name", tracking=True)
+    name = fields.Char(string="Name", tracking=True)  #name field created
     date_of_birth = fields.Date("Date Of Birth")
     age = fields.Integer(string="Age", compute='_compute_age')  # if there is compute feature, it won't be stored in db, if you want, you can add store=True
     ref = fields.Char(string="Reference", default='HB00')
