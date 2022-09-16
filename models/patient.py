@@ -19,6 +19,8 @@ class HospitalPatient(models.Model):
     image = fields.Image(string="Image")
     tag_ids = fields.Many2many('patient.tag', string="Tags")
 
+    second_language = fields.Char(string="Second Language")
+
     @api.depends('date_of_birth')  # for compute before clicking save button
     def _compute_age(self):
         for rec in self:
@@ -27,3 +29,11 @@ class HospitalPatient(models.Model):
                 rec.age = today.year - rec.date_of_birth.year
             else:
                 rec.age = 0
+
+    def get_second_l(self):
+
+        second_language_data_2 = self.env['ir.translation'].search(
+            [('name', '=', 'product.template,name'),
+             ('res_id', '=', self.env['product.template'].search([('id', '=', self.id)]).id),
+             ('lang', '=', 'en_US')]).value
+        print(second_language_data_2)
