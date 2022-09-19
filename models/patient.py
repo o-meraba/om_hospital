@@ -24,7 +24,7 @@ class HospitalPatient(models.Model):
     @api.model
     def create(self, vals):
         print("Omeraaaaaaaabaaaaaa", vals)
-        vals['ref'] = "OM_TEST"
+        vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.patient')
         return super(HospitalPatient,self).create(vals)
 
 
