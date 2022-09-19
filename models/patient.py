@@ -21,6 +21,14 @@ class HospitalPatient(models.Model):
 
     second_language = fields.Char(string="Second Language")
 
+    @api.model
+    def create(self, vals):
+        print("Omeraaaaaaaabaaaaaa", vals)
+        vals['ref'] = "OM_TEST"
+        return super(HospitalPatient,self).create(vals)
+
+
+
     @api.depends('date_of_birth')  # for compute before clicking save button
     def _compute_age(self):
         for rec in self:

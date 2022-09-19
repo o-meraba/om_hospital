@@ -13,6 +13,8 @@
     'depends': ['mail', 'product'],
     'data': [
         'security/ir.model.access.csv',
+        'data/patient_tag_data.xml',
+        'data/patient.tag.csv',
         'views/menu.xml',
         'views/patient_view.xml',
         'views/female_patient_view.xml',
