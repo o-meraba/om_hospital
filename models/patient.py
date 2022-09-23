@@ -23,11 +23,14 @@ class HospitalPatient(models.Model):
 
     @api.model
     def create(self, vals):
-        print("Omeraaaaaaaabaaaaaa", vals)
+        print("create method trigger", vals)
         vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.patient')
-        return super(HospitalPatient,self).create(vals)
+        return super(HospitalPatient, self).create(vals)
 
-
+    def write(self, vals):
+        if not self.ref and  not vals.get('ref'):
+            vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.patient')
+        return super(HospitalPatient, self).write(vals)
 
     @api.depends('date_of_birth')  # for compute before clicking save button
     def _compute_age(self):
