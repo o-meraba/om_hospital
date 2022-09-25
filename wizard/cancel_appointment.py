@@ -15,7 +15,8 @@ class CancelAppointmentWizard(models.TransientModel):
         print("Default get executed 2", res)
         return res
 
-    appointment_id = fields.Many2one('hospital.appointment', string="Appointment")
+    appointment_id = fields.Many2one('hospital.appointment', string="Appointment",
+                                     domain=['|', ('state', '=', 'draft'), ('priority', 'in', ('0', '1', False))])
     reason = fields.Text(string="Reason", default='Test Reason')
     date_cancel = fields.Date(string="Cancellation Date")
 
