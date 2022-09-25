@@ -44,10 +44,11 @@
                         class="btn-primary" type="object"/>
                         <button name="action_done" id="action_done" string="Mark As Done" data-hotkey="g"
                         class="btn-primary" type="object" states="in_consultation" />
-                       <!-- <button name="%(om_hospital.action_cancel_appointment)d" string="Cancel" data-hotkey="z" type="action"
-                        states="draft,in_consultation"/> -->
-                       <button name="action_cancel" id="action_cancel" string="Cancel" data-hotkey="z"
-                        class="btn-primary" type="object" states="in_consultation,draft"/>
+                        <button name="%(om_hospital.action_cancel_appointment)d" string="Cancel" data-hotkey="z"
+                               context="{'hide_appointment':0}" type="action"
+                        states="draft,in_consultation"/>
+                      <!-- <button name="action_cancel" id="action_cancel" string="Cancel" data-hotkey="z"
+                        class="btn-primary" type="object" states="in_consultation,draft"/>-->
                          <button name="action_draft" id="action_draft" string="Reset To Draft" data-hotkey="h"
                         class="btn-primary" type="object" states="cancel"/>
                         <!-- options="{'clickable': '1', 'fold_field': 'fold'}" -->
