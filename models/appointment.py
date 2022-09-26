@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class HospitalAppointment(models.Model):
@@ -60,7 +61,11 @@ class HospitalAppointment(models.Model):
     @api.onchange('patient_id')
     def onchange_patient_id(self):
         self.ref = self.patient_id.ref
-
+    def unlink(self):
+        if self.state != 'draft':
+            raise ValidationError("The appointment's state is not draft! You can not delete it")
+        print("Unlink TESSSSTTT.........")
+        super(HospitalAppointment, self).unlink()
 
 class AppointmentPharmacyLines(models.Model):
     _name = "appointment.pharmacy.lines"
