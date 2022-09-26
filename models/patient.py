@@ -1,5 +1,8 @@
+import datetime
+
 from odoo import api, fields, models
 from datetime import date
+from odoo.exceptions import ValidationError
 
 
 class HospitalPatient(models.Model):
@@ -20,6 +23,12 @@ class HospitalPatient(models.Model):
     tag_ids = fields.Many2many('patient.tag', string="Tags")
 
     second_language = fields.Char(string="Second Language")
+
+    @api.constrains('date_of_birth')
+    def _check_date_of_birth(self):
+        for rec in self:
+            if rec.date_of_birth and rec.date_of_birth > fields.Date.today():
+                raise ValidationError('The date of birth cannot be after today')
 
     @api.model
     def create(self, vals):
