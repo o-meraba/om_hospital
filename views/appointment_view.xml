@@ -17,6 +17,9 @@
                 <tree create="1" delete="0" sample="1" multi_edit="1"
                       decoration-success="state == 'done'"
                       decoration-danger="state =='cancel'">
+                    <header>
+                         <button name="action_in_consultation"  string="In Consultation" type="object"/>
+                    </header>
                     <field name="patient_id" />
                       <field name="appointment_ref"/>
                     <field name="appointment_time" optional="hide" />
