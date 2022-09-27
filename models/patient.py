@@ -14,7 +14,7 @@ class HospitalPatient(models.Model):
     name = fields.Char(string="Name", tracking=True)  #name field created
     date_of_birth = fields.Date("Date Of Birth")
     age = fields.Integer(string="Age", compute='_compute_age')  # if there is compute feature, it won't be stored in db, if you want, you can add store=True
-    ref = fields.Char(string="Reference", default='HB00')
+    ref = fields.Char(string="Reference")
     gender = fields.Selection([('male', "Male"), ('female', 'Female')], string='Gender', default='male')
     active = fields.Boolean(string="Active", default=True)
     note = fields.Text(string="Description", tracking=True)
@@ -39,7 +39,6 @@ class HospitalPatient(models.Model):
 
     @api.model
     def create(self, vals):
-        print("create method trigger", vals)
         vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.patient')
         return super(HospitalPatient, self).create(vals)
 

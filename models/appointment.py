@@ -7,13 +7,14 @@ class HospitalAppointment(models.Model):
     _name = "hospital.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Hospital Appointment"
-    _rec_name = "patient_id"
+    _rec_name = "appointment_ref"
 
     patient_id = fields.Many2one(comodel_name='hospital.patient', string="Patient") # you can use just 'hospital.patient' but it should place first in parentheses
     appointment_time = fields.Datetime(string="Appointment Time", default=fields.Datetime.now)
     booking_date = fields.Date(string="Booking Date", default=fields.Date.today)
     gender = fields.Selection(related='patient_id.gender')
     ref = fields.Char(string="Reference", help="Reference of the patient from patient record")
+    appointment_ref = fields.Char(string="Appointment Reference")
     prescription = fields.Html(string='Prescription')
     priority = fields.Selection([
         ('0', 'Normal'),
@@ -28,6 +29,17 @@ class HospitalAppointment(models.Model):
     doctor_id = fields.Many2one('res.users', string='Doctor')
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines', 'appointment_id', string='Pharmacy Lines')
     hide_sales_price = fields.Boolean(string="Hide Sales Price")
+
+    @api.model
+    def create(self, vals):
+        vals['appointment_ref'] = self.env['ir.sequence'].next_by_code('hospital.appointment')
+        return super(HospitalAppointment, self).create(vals)
+
+    def write(self, vals):
+        if not self.ref and not vals.get('ref'):
+            vals['appointment_ref'] = self.env['ir.sequence'].next_by_code('hospital.appointment')
+        return super(HospitalAppointment, self).write(vals)
+
 
     def action_in_consultation(self):
         for rec in self:

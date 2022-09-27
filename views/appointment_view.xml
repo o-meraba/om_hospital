@@ -18,6 +18,7 @@
                       decoration-success="state == 'done'"
                       decoration-danger="state =='cancel'">
                     <field name="patient_id" />
+                      <field name="appointment_ref"/>
                     <field name="appointment_time" optional="hide" />
                     <field name="gender" optional="hide"/>
                     <field name="doctor_id" widget="many2one_avatar_user"/>
@@ -68,6 +69,7 @@
                                 <field name="doctor_id" />
                             </group>
                             <group>
+                                <field name="appointment_ref"/>
                                   <field name="ref"/>
                                   <field name="appointment_time" />
                                   <field name="hide_sales_price" groups="base.group_no_one"/>
