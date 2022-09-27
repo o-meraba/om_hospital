@@ -53,6 +53,7 @@
                             <group>
                                 <field name="name"/>
                                 <field name="age"/>
+                                <field name="appointment_count"/>
                                 <field name="date_of_birth"/>
                                  <field name="appointment_id"/>
                             </group>
