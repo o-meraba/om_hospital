@@ -39,6 +39,10 @@
                                context="{'hide_appointment':0}" type="action"
                             class="fa fa-times btn-danger"
                             attrs="{'invisible':[('state', 'not in', ('draft','in_consultation'))]}"/>
+                    <groupby name="patient_id">
+                        <button name="action_test" string="Click me" class="oe_highlight" type="object"/>
+                        <button name="edit" string="Edit"  type="edit"/>
+                    </groupby>
                 </tree>
             </field>
         </record>

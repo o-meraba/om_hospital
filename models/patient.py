@@ -67,6 +67,11 @@ class HospitalPatient(models.Model):
             else:
                 rec.age = 0
 
+    def action_test(self):
+        print("Clicked Action TEST")
+        return
+
+
     def get_second_l(self):
 
         second_language_data_2 = self.env['ir.translation'].search(
