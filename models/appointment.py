@@ -30,6 +30,13 @@ class HospitalAppointment(models.Model):
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines', 'appointment_id', string='Pharmacy Lines')
     hide_sales_price = fields.Boolean(string="Hide Sales Price")
 
+    @api.constrains('booking_date')
+    def _check_booking_date(self):
+        for rec in self:
+            if rec.booking_date and rec.booking_date < fields.Date.today():
+                raise ValidationError('The booking date cannot be before today')
+
+
     @api.model
     def create(self, vals):
         vals['appointment_ref'] = self.env['ir.sequence'].next_by_code('hospital.appointment')
