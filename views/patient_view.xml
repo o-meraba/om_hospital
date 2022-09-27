@@ -52,17 +52,26 @@
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="age"/>
-                                <field name="appointment_count"/>
                                 <field name="date_of_birth"/>
-                                 <field name="appointment_id"/>
+                                <field name="age"/>
                             </group>
                             <group>
                                  <field name="ref"/>
                                  <field name="gender" invisible="context.get('hide_gender')"/>
                                  <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 <field name="active" invisible="1"/>
+                                 <field name="appointment_count"/>
+                                 <field name="appointment_id"/>
                             </group>
+                        </group>
+                        <group string="Other Information" name="other_info">
+                            <group>
+                                <field name="parent" attrs="{'invisible': [('age', '>=', 18)]}"/>
+                                <field name="marital_status" attrs="{'invisible': [('age', '&lt;=', 18)]}"/>
+                                <field name="partner_name" attrs="{'readonly': [('marital_status', '=', 'single')]}" />
+
+                            </group>
+
                         </group>
                         <notebook>
                             <page string="Other" name="other">
