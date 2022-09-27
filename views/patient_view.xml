@@ -49,14 +49,20 @@
                 <form>
                     <sheet>
                         <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h4>
+                                <field name="ref" readonly="1"/>
+                            </h4>
+                            <h2>
+                                <field name="name"/>
+                            </h2>
+                        </div>
                         <group>
                             <group>
-                                <field name="name"/>
                                 <field name="date_of_birth"/>
                                 <field name="age"/>
                             </group>
                             <group>
-                                 <field name="ref"/>
                                  <field name="gender" invisible="context.get('hide_gender')"/>
                                  <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 <field name="active" invisible="1"/>
@@ -68,7 +74,9 @@
                             <group>
                                 <field name="parent" attrs="{'invisible': [('age', '>=', 18)]}"/>
                                 <field name="marital_status" attrs="{'invisible': [('age', '&lt;=', 18)]}"/>
-                                <field name="partner_name" attrs="{'readonly': [('marital_status', '=', 'single')]}" />
+                                <field name="partner_name" attrs="{'readonly': [('marital_status', '=', 'single')],
+                                                                    'required':[('marital_status', '=', 'married')],
+                                                                    'invisible': [('age', '&lt;=', 18)]}" />
 
                             </group>
 
