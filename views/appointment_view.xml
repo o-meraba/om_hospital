@@ -32,6 +32,13 @@
                            decoration-warning="state == 'in_consultation'"
                            decoration-info="state == 'draft'"
                            decoration-danger="state =='cancel'"/>
+                    <button name="action_done"
+                         class="fa fa-check btn-success" type="object"
+                        attrs="{'invisible':[('state', '!=', 'in_consultation')]}"/>
+                    <button name="%(om_hospital.action_cancel_appointment)d"
+                               context="{'hide_appointment':0}" type="action"
+                            class="fa fa-times btn-danger"
+                            attrs="{'invisible':[('state', 'not in', ('draft','in_consultation'))]}"/>
                 </tree>
             </field>
         </record>
