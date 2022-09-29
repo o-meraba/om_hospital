@@ -64,7 +64,7 @@
                                 <field name="age"/>
                             </group>
                             <group>
-                                 <field name="gender" invisible="context.get('hide_gender')"/>
+                                 <field name="gender" invisible="context.get('hide_gender')" widget="radio"/>
                                  <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 <field name="active" invisible="1"/>
                                  <field name="appointment_count"/>
