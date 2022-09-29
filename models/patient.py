@@ -14,7 +14,8 @@ class HospitalPatient(models.Model):
 
     name = fields.Char(string="Name", tracking=True)  #name field created
     date_of_birth = fields.Date("Date Of Birth")
-    age = fields.Integer(string="Age", compute='_compute_age', inverse='_inverse_compute_age', tracking=True)  # if there is compute feature, it won't be stored in db, if you want, you can add store=True
+    age = fields.Integer(string="Age", compute='_compute_age', inverse='_inverse_compute_age',
+                         search='_search_age', tracking=True)  # if there is compute feature, it won't be stored in db, if you want, you can add store=True
     ref = fields.Char(string="Reference")
     gender = fields.Selection([('male', "Male"), ('female', 'Female')], string='Gender', default='male')
     active = fields.Boolean(string="Active", default=True)
@@ -73,6 +74,12 @@ class HospitalPatient(models.Model):
         today = date.today()
         for rec in self:
             rec.date_of_birth = today - relativedelta.relativedelta(years=rec.age)
+
+    def _search_age(self, operator, value):  # this function is for searchable non stored compute field
+        date_of_birth = date.today() - relativedelta.relativedelta(years=value)
+        start_of_year = date_of_birth.replace(day=1, month=1)
+        end_of_year = date_of_birth.replace(day=31, month=12)
+        return [('date_of_birth', '>=', start_of_year), ('date_of_birth', '<=', end_of_year)]
 
 
     def action_test(self):
