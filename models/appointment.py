@@ -29,6 +29,7 @@ class HospitalAppointment(models.Model):
     doctor_id = fields.Many2one('res.users', string='Doctor')
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines', 'appointment_id', string='Pharmacy Lines')
     hide_sales_price = fields.Boolean(string="Hide Sales Price")
+    operation = fields.Many2one('hospital.operation', string='Operation')
 
     @api.constrains('booking_date')
     def _check_booking_date(self):

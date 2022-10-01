@@ -27,6 +27,7 @@
                     <field name="doctor_id" widget="many2one_avatar_user"/>
                     <field name="booking_date" optional="show" />
                     <field name="activity_ids" widget="list_activity"/>
+                    <field name="operation"/>
                     <field name="state" widget="badge"
                            decoration-success="state == 'done'"
                            decoration-warning="state == 'in_consultation'"
@@ -81,6 +82,7 @@
                                 <field name="gender"/>
                                 <field name="booking_date" default_focus="1" help="Date of booking"/>
                                 <field name="doctor_id" />
+                                <field name="operation"/>
                             </group>
                             <group>
                                 <field name="appointment_ref"/>
