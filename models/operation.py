@@ -10,4 +10,4 @@ class HospitalOperation(models.Model):
 
     @api.model
     def name_create(self, name):
-        return self.create({'name': name}).name_get()[0]
+        return self.create({'operation_name': name}).name_get()[0]
