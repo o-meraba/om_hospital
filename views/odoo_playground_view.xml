@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_odoo_playground_form" model="ir.ui.view">
+        <field name="name">odoo.playground.form</field>
+        <field name="model">odoo.playground</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                      <field name="model_id"/>
+                      <field name="code" widget="ace" options="{'mode':'python'}"/> <!-- 'mode':'xml' -->
+                </group>
+                <group>
+                    <div>
+                        <button name="action_execute" string="Execute" type="object"
+                                class="fa fa-check oe_highlight" data-hotkey="q"/>
+                        <button name="action_clear" string="Clear" class="fa fa-refresh"
+                        type="object" data-hotkey="c"/>
+                    </div>
+                </group>
+                <group>
+                    <div style="margin-top: 4px;">
+                        <h3>Help</h3>
+                        <p>Various available functions and variables available in odoo environment</p>
+                        <ul>
+                            <li><code>self</code> : Current Object on which the action is triggered</li>                             <li><code>self</code> : Current Object on which the action is triggered</li>
+                            <li><code>self</code> : Current Object on which the action is triggered</li>
+                            <li><code>self</code> : Current Object on which the action is triggered</li>
+                            <li><code>self</code> : Current Object on which the action is triggered</li>
+
+                        </ul>
+
+                    </div>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoo_playground" model="ir.actions.act_window">
+        <field name="name">PlayGround</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoo.playground</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first playground!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_odoo_playground"
+              name="PlayGround"
+              action="action_odoo_playground"
+              parent="menu_configuration"
+              sequence="30"/>
+</odoo>

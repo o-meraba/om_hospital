@@ -5,6 +5,8 @@ access.appointment.pharmacy.lines,access_appointment_pharmacy_lines,om_hospital.
 access.patient.tag,access_patient_tag,om_hospital.model_patient_tag,base.group_user,1,1,1,1
 access.cancel.appointment.wizard,access_cancel_appointment_wizard,om_hospital.model_cancel_appointment_wizard,base.group_user,1,1,1,1
 access.hospital.operation,access_hospital_operation,om_hospital.model_hospital_operation,base.group_user,1,1,1,1
+access.odoo.playground,access_odoo_playground,om_hospital.model_odoo_playground,base.group_user,1,1,1,1
+
 
 
 
