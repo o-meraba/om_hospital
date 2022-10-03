@@ -28,7 +28,7 @@ class HospitalPatient(models.Model):
     parent = fields.Char(string="Parent")
     marital_status = fields.Selection([('married', 'Married'), ('single', 'Single')], string="Marital Status", tracking=True)
     partner_name = fields.Char(string="Partner Name")
-
+    is_birthday = fields.Boolean(string="Birthday ?", compute='_compute_is_birthday')
 
     second_language = fields.Char(string="Second Language")
 
@@ -85,8 +85,15 @@ class HospitalPatient(models.Model):
     def action_test(self):
         print("Clicked Action TEST")
         return
-
-
+    @api.depends('date_of_birth')
+    def _compute_is_birthday(self):
+        for rec in self:
+            is_birthday = False
+            if rec.date_of_birth:
+                today = date.today()
+                if today.day == rec.date_of_birth.day and today.month == rec.date_of_birth.month:
+                    is_birthday = True
+            rec.is_birthday = is_birthday
     def get_second_l(self):
 
         second_language_data_2 = self.env['ir.translation'].search(
