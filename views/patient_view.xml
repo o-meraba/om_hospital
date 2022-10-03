@@ -90,7 +90,9 @@
                                 <field name="partner_name" attrs="{'readonly': [('marital_status', '=', 'single')],
                                                                     'required':[('marital_status', '=', 'married')],
                                                                     'invisible': [('age', '&lt;=', 18)]}" />
-
+                                <field name="phone" widget="phone"/>
+                                <field name="website" widget="url"/>
+                                <field name="email" widget="email"/>
                             </group>
 
                         </group>

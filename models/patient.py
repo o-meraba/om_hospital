@@ -29,6 +29,9 @@ class HospitalPatient(models.Model):
     marital_status = fields.Selection([('married', 'Married'), ('single', 'Single')], string="Marital Status", tracking=True)
     partner_name = fields.Char(string="Partner Name")
     is_birthday = fields.Boolean(string="Birthday ?", compute='_compute_is_birthday')
+    phone = fields.Char(string="Phone")
+    email = fields.Char(string="Email")
+    website = fields.Char(string="Website")
 
     second_language = fields.Char(string="Second Language")
 
