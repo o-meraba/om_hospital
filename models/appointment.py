@@ -31,6 +31,7 @@ class HospitalAppointment(models.Model):
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines', 'appointment_id', string='Pharmacy Lines')
     hide_sales_price = fields.Boolean(string="Hide Sales Price")
     operation = fields.Many2one('hospital.operation', string='Operation')
+    progress = fields.Integer(string='Progress', compute='_compute_progress')
 
     @api.constrains('booking_date')
     def _check_booking_date(self):
@@ -88,6 +89,20 @@ class HospitalAppointment(models.Model):
         if self.state != 'draft':
             raise ValidationError("The appointment's state is not draft! You can not delete it")
         super(HospitalAppointment, self).unlink()
+
+    @api.depends('state')
+    def _compute_progress(self):
+        for rec in self:
+            if rec.state == 'draft':
+                progress = 25
+            elif rec.state == 'in_consultation':
+                progress = 50
+            elif rec.state == 'done':
+                progress = 100
+            else:
+                progress = 0
+            rec.progress = progress
+        return
 
 class AppointmentPharmacyLines(models.Model):
     _name = "appointment.pharmacy.lines"
