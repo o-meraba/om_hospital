@@ -32,6 +32,7 @@ class HospitalAppointment(models.Model):
     hide_sales_price = fields.Boolean(string="Hide Sales Price")
     operation = fields.Many2one('hospital.operation', string='Operation')
     progress = fields.Integer(string='Progress', compute='_compute_progress')
+    duration = fields.Float(string="Duration")
 
     @api.constrains('booking_date')
     def _check_booking_date(self):
