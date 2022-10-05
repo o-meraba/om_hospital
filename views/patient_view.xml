@@ -49,6 +49,11 @@
                <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                             <button class="oe_stat_button" type="object" name="action_view_appointment" icon="fa-star">
+                        <field string="Appointment" name="appointment_count" widget="statinfo"/>
+                    </button>
+                        </div>
                     <div class="alert alert-info text-center o_form_header" role="alert"
                             attrs="{'invisible':[('is_birthday', '=', False)]}">
                           <a class="close" data-dismiss="alert" href="#">x</a>
@@ -78,7 +83,7 @@
                                  <field name="gender" invisible="context.get('hide_gender')" widget="radio"/>
                                  <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 <field name="active" invisible="1"/>
-                                 <field name="appointment_count"/>
+<!--                                 <field name="appointment_count"/>-->
                                 <field name="is_birthday" invisible="1"/>
                                  <field name="appointment_id"/>
                             </group>

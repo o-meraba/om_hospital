@@ -35,6 +35,17 @@ class HospitalPatient(models.Model):
 
     second_language = fields.Char(string="Second Language")
 
+    def action_view_appointment(self):
+        return {
+            'name': ('Appointments'),
+            'view_mode': 'tree,form',
+            'res_model': 'hospital.appointment',
+            'type': 'ir.actions.act_window',
+            'context': {'default_patient_id': self.id},
+            'domain': [('patient_id', '=', self.id)],
+            'target': 'current',
+        }
+
     @api.depends('appointment_ids')
     def _compute_appointment_count(self):
             appointment_group = self.env['hospital.appointment'].read_group(domain=[], fields=['patient_id'],
