@@ -5,6 +5,7 @@
         <field name="model">hospital.operation</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" widget="handle"/>
                 <field name="operation_name"/>
                 <field name="doctor_id"/>
                 <field name="reference_record"/>
