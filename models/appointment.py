@@ -1,3 +1,5 @@
+from locale import currency
+import string
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -26,13 +28,15 @@ class HospitalAppointment(models.Model):
         ('draft', 'Draft'),
         ('in_consultation', 'In Consultation'),
         ('done', 'Done'),
-        ('cancel', 'Cancel')],default='draft', string="Status", required=True, tracking=True)
+        ('cancel', 'Cancel')],default='draft', string="Status", required=True , tracking=True)
     doctor_id = fields.Many2one('res.users', string='Doctor')
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines', 'appointment_id', string='Pharmacy Lines')
     hide_sales_price = fields.Boolean(string="Hide Sales Price")
     operation = fields.Many2one('hospital.operation', string='Operation')
     progress = fields.Integer(string='Progress', compute='_compute_progress')
     duration = fields.Float(string="Duration")
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
+    currency_id = fields.Many2one('res.currency', related="company_id.currency_id")
 
     @api.constrains('booking_date')
     def _check_booking_date(self):
@@ -113,3 +117,10 @@ class AppointmentPharmacyLines(models.Model):
     price_unit = fields.Float(related='product_id.list_price')
     qty = fields.Integer(string='Quantity', default=1)
     appointment_id = fields.Many2one('hospital.appointment', string='Appointment')
+    price_subtotal = fields.Monetary(string='Subtotal', compute='_compute_price_subtotal', currency_field='companyt_currency_id')
+    companyt_currency_id = fields.Many2one('res.currency', related='appointment_id.currency_id')
+    
+    @api.depends('price_unit', 'qty')
+    def _compute_price_subtotal(self):
+        for rec in self:
+            rec.price_subtotal = rec.price_unit * rec.qty

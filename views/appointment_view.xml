@@ -143,9 +143,11 @@
                                 <field name="pharmacy_line_ids">
                                     <tree editable="top"> <!-- editable="bottom" -->
                                         <field name="product_id"/>
-                                        <field name="price_unit"
+                                        <field name="price_unit" widget='monetary' options="{'currency_field':'companyt_currency_id'}"
                                                attrs="{'column_invisible' : [('parent.hide_sales_price', '=', True)]}"/>
                                         <field name="qty" />
+                                        <field name="companyt_currency_id" invisible="1"/>
+                                        <field name="price_subtotal"/>
                                     </tree>
                                     <form>
                                         <group>
