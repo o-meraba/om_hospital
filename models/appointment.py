@@ -38,6 +38,7 @@ class HospitalAppointment(models.Model):
     company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
     currency_id = fields.Many2one('res.currency', related="company_id.currency_id")
     url = fields.Char(string='URL')
+    amount_total = fields.Monetary(string='Total', compute='_compute_amount_total', currency_field='currency_id')
 
     @api.constrains('booking_date')
     def _check_booking_date(self):
@@ -57,6 +58,9 @@ class HospitalAppointment(models.Model):
         return super(HospitalAppointment, self).write(vals)
 
 
+    def _compute_amount_total(self):
+        pass
+    
     def action_in_consultation(self):
         for rec in self:
             if rec.state == 'draft':
