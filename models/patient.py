@@ -12,24 +12,24 @@ class HospitalPatient(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'name desc'
 
-    name = fields.Char(string="Name", tracking=True)  #name field created
-    date_of_birth = fields.Date("Date Of Birth")
+    name = fields.Char(string="Name", tracking=True)  #name field created & tracking=True (=100)
+    date_of_birth = fields.Date("Date Of Birth", tracking=30)
     age = fields.Integer(string="Age", compute='_compute_age', inverse='_inverse_compute_age',
-                         search='_search_age', tracking=True)  # if there is compute feature, it won't be stored in db, if you want, you can add store=True
-    ref = fields.Char(string="Reference")
+                         search='_search_age', tracking=20)  # if there is compute feature, it won't be stored in db, if you want, you can add store=True
+    ref = fields.Char(string="Reference",tracking=10)
     gender = fields.Selection([('male', "Male"), ('female', 'Female')], string='Gender', default='male')
-    active = fields.Boolean(string="Active", default=True)
+    active = fields.Boolean(string="Active", default=True, tracking=40)
     note = fields.Text(string="Description", tracking=True)
-    appointment_id = fields.Many2one('hospital.appointment', string='Appointments')
+    appointment_id = fields.Many2one('hospital.appointment', string='Appointments', tracking=80)
     image = fields.Image(string="Image")
-    tag_ids = fields.Many2many('patient.tag', string="Tags")
+    tag_ids = fields.Many2many('patient.tag', string="Tags", tracking=60)
     appointment_count = fields.Integer(string="Appointment Count", compute='_compute_appointment_count', store=True)
     appointment_ids = fields.One2many('hospital.appointment', 'patient_id', string="Appointments")
     parent = fields.Char(string="Parent")
     marital_status = fields.Selection([('married', 'Married'), ('single', 'Single')], string="Marital Status", tracking=True)
     partner_name = fields.Char(string="Partner Name")
     is_birthday = fields.Boolean(string="Birthday ?", compute='_compute_is_birthday')
-    phone = fields.Char(string="Phone")
+    phone = fields.Char(string="Phone", tracking=120)
     email = fields.Char(string="Email")
     website = fields.Char(string="Website")
 
