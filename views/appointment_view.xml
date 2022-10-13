@@ -52,9 +52,9 @@
                     <field name="patient_id" />
                       <field name="appointment_ref"/>
                     <field name="appointment_time" optional="hide" />
-                    <field name="gender" optional="hide"/>
+                    <field name="gender" optional="hide" decoration-it="gender=='female'" decoration-bf="1"/>
                     <field name="doctor_id" widget="many2one_avatar_user"/>
-                    <field name="booking_date" optional="show" />
+                    <field name="booking_date" optional="show" decoration-bf="1" />
                     <field name="activity_ids" widget="list_activity"/>
                     <field name="operation"/>
                     <field name="state" widget="badge"
@@ -149,7 +149,7 @@
                                                attrs="{'column_invisible' : [('parent.hide_sales_price', '=', True)]}"/>
                                         <field name="qty" />
                                         <field name="companyt_currency_id" invisible="1"/>
-                                        <field name="price_subtotal"/>
+                                        <field name="price_subtotal" />
                                     </tree>
                                     <form>
                                         <group>
