@@ -114,20 +114,22 @@
                                 <field name="doctor_id" />
                                 <field name="duration" />
                                 <field name="operation"/>
+                                <field name="url"/>
                             </group>
                             <group>
                                 <field name="appointment_ref"/>
                                   <field name="ref" readonly="1" force_save="1"/>
                                   <field name="appointment_time" />
                                   <field name="hide_sales_price" groups="base.group_no_one"/>
-                                  <button name="action_test" string="Test Button"
-                                          confirm="Are you sure to execute Python code?"
+                                  <button name="action_test" string="Redirect Button"
+                                          confirm="Are you sure you need to redirect?"
                                           help="A message will be printed in the log"
                                           type="object" class="btn btn-primary" data-hotkey="m"/> <!-- object button will execute a python func -->
                                   <button name="%(action_hospital_patient)d" string="Action Button"
                                           help="On clicking this button, you will be redirected to patient records"
                                           confirm="Are you sure to open the patient action?"
                                           type="action" class="btn btn-primary"/>
+
                                 <!-- action button will trigger an action  -->
                             </group>
                         </group>

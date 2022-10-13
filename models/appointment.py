@@ -37,6 +37,7 @@ class HospitalAppointment(models.Model):
     duration = fields.Float(string="Duration")
     company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
     currency_id = fields.Many2one('res.currency', related="company_id.currency_id")
+    url = fields.Char(string='URL')
 
     @api.constrains('booking_date')
     def _check_booking_date(self):
@@ -64,6 +65,13 @@ class HospitalAppointment(models.Model):
     def action_done(self):
         for rec in self:
             rec.state = 'done'
+        return {
+            'effect': {
+                'fadeout': 'slow',
+                'message': "Done",
+                'type': 'rainbow_man',
+            }
+        }    
 
     def action_cancel(self):
         action = self.env.ref('om_hospital.action_cancel_appointment').read()[0]
@@ -74,14 +82,12 @@ class HospitalAppointment(models.Model):
             rec.state = 'draft'
 
     def action_test(self):
-        print("Test Button clicked")
-        return {
-            'effect': {
-                'fadeout': 'slow',
-                'message': "Click Successfull",
-                'type': 'rainbow_man',
-            }
-        }
+       #url action
+       return {
+           'type' : 'ir.actions.act_url',
+           'target' : 'new', # 'target' : 'self',
+           'url': self.url  #'url' : 'https://www.odoo.com' , 'http://localhost:8069/shop'
+       }
 
     def action_button(self):
         print("Action button was clicked")
