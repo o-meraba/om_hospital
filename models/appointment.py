@@ -95,6 +95,24 @@ class HospitalAppointment(models.Model):
 
     def action_button(self):
         print("Action button was clicked")
+        
+    def action_share_whatsapp(self):
+        if not self.patient_id.phone:
+            raise ValidationError('There is no a phone number')
+        msg = "Hi %s, your *appointment* number is: %s" % (self.patient_id.name, self.ref)
+        whatsapp_api_url = 'https://api.whatsapp.com/send?phone=%s&text=%s' % (self.patient_id.phone, msg)
+        return {
+           'type': 'ir.actions.act_url',
+           'target': 'new',
+           'url': whatsapp_api_url
+        }
+    
+    def action_test1(self):
+         return {
+           'type' : 'ir.actions.act_url',
+           'target' : 'new', # 'target' : 'self',
+           'url': self.url  #'url' : 'https://www.odoo.com' , 'http://localhost:8069/shop'
+        }
 
     @api.onchange('patient_id')
     def onchange_patient_id(self):
