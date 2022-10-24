@@ -142,11 +142,11 @@ class AppointmentPharmacyLines(models.Model):
     _description = "Appointment Pharmacy Lines"
 
     product_id = fields.Many2one('product.product', required=True)
-    price_unit = fields.Float(related='product_id.list_price')
+    price_unit = fields.Float(related='product_id.list_price', digits='Product Price')
     qty = fields.Integer(string='Quantity', default=1)
     appointment_id = fields.Many2one('hospital.appointment', string='Appointment')
-    price_subtotal = fields.Monetary(string='Subtotal', compute='_compute_price_subtotal', currency_field='companyt_currency_id')
-    companyt_currency_id = fields.Many2one('res.currency', related='appointment_id.currency_id')
+    price_subtotal = fields.Monetary(string='Subtotal', compute='_compute_price_subtotal', currency_field='company_currency_id')
+    company_currency_id = fields.Many2one('res.currency', related='appointment_id.currency_id')
     
     @api.depends('price_unit', 'qty')
     def _compute_price_subtotal(self):
