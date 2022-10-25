@@ -119,6 +119,7 @@ class HospitalAppointment(models.Model):
             raise ValidationError('There is no a phone number')
         msg = "Hi %s, your *appointment* number is: %s" % (self.patient_id.name, self.ref)
         whatsapp_api_url = 'https://api.whatsapp.com/send?phone=%s&text=%s' % (self.patient_id.phone, msg)
+        self.message_post(body=msg, subject='Whatsapp Message') #add the message to chatter
         return {
            'type': 'ir.actions.act_url',
            'target': 'new',
