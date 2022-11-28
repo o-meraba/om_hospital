@@ -23,7 +23,7 @@
                             <table>
                                 <tr>
                                     <td colspan="3" class="text-center">
-                                        <span t-field="o.name"/>
+                                        <span t-field="o.name" />
                                     </td>
                                 </tr>
                                 <tr>
