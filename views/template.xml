@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="patients_page" name="Hospital Patients">
+        <t t-call="website.layout">
+            <div class="container">
+                HEY What's up man!
+                <table>
+                    <thead>
+                        <td>
+                            Name
+                        </td>
+                    </thead>
+                    <tbody>
+                            <t t-foreach="patients" t-as="patient">
+                            <tr>
+                            <td>
+                                <t t-esc="patient.name"/>                    
+                            </td>
+                        </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+</odoo>
