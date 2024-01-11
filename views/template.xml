@@ -5,17 +5,29 @@
         <t t-call="website.layout">
             <div class="container">
                 HEY What's up man!
-                <table>
+                <table class="table table-bordered">
                     <thead>
-                        <td>
-                            Name
-                        </td>
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Date of Birth</th>
+                          <th scope="col">Gender</th>
+                          <th scope="col">Phone</th> 
+                        </tr>
                     </thead>
                     <tbody>
                             <t t-foreach="patients" t-as="patient">
                             <tr>
                             <td>
                                 <t t-esc="patient.name"/>                    
+                            </td>
+                            <td>
+                                <t t-esc="patient.date_of_birth"/>                    
+                            </td>
+                            <td>
+                                <t t-esc="patient.gender"/>                    
+                            </td>
+                            <td>
+                                <t t-esc="patient.phone"/>                    
                             </td>
                         </tr>
                         </t>
